@@ -8,3 +8,7 @@ const adapter = new FileSync(
 const db = low(adapter);
 
 db.defaults({ contacts: [] }).write();
+console.log(path.join(__dirname, "..", "..", "model", "contacts.json"));
+// console.log(db);
+
+exports.modules = db;

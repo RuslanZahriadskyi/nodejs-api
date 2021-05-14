@@ -1,26 +1,37 @@
+const { ContactsRepository } = require("../repository");
+
 class ContactsService {
-  constructor(contacts) {
-    this.contacts = contacts;
+  constructor() {
+    this.repository = {
+      contacts: new ContactsRepository(),
+    };
   }
 
   getAllContacts() {
-    return {};
+    const data = this.repository.contacts.getAllContacts();
+    return data;
   }
 
   getContactById(id) {
-    return {};
+    const data = this.repository.contacts.getContactById(id);
+    return data;
   }
 
   createContact(body) {
-    return {};
+    const data = this.repository.contacts.createContact(body);
+    return data;
   }
 
   updateContact(id, body) {
-    return {};
+    const data = this.repository.contacts.updateContact(id, body);
+
+    return data;
   }
 
   removeContact(id) {
-    return {};
+    const data = this.repository.contacts.removeContact(id);
+
+    return data;
   }
 }
 
