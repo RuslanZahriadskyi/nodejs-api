@@ -3,7 +3,7 @@ const logger = require("morgan");
 const cors = require("cors");
 const { HttpCode } = require("./helpers/constants");
 
-const contactsRouter = require("./routes/contactsRoutes");
+const contactsRouter = require("./api/contacts/contacts");
 
 const app = express();
 
@@ -19,13 +19,14 @@ app.use((req, res) => {
   res.status(HttpCode.NOT_FOUND).json({
     status: "error",
     code: HttpCode.NOT_FOUND,
-    message: `On routes ${req.baseUrl}/api/contacts`,
+    message: `Your contacts on routes ${req.baseUrl}/api/contacts`,
     data: "Not Found",
   });
 });
 
 app.use((err, req, res, next) => {
   err.status = err.status ? err.status : HttpCode.INTERNAL_SERVER_ERROR;
+  console.log(err.message);
   res.status(err.status).json({
     status: err.status === 500 ? "fail" : "error",
     code: err.status,

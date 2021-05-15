@@ -1,14 +1,12 @@
 const { v4: uuid } = require("uuid");
-const db = require("../db/contactsDb");
-
+const db = require("../db");
 class ContactsRepository {
   getAllContacts() {
-    console.log(db.get("contacts"));
-    return db.get("contacts");
+    return db.get("contacts").value();
   }
 
   getContactById(id) {
-    return db.get("posts").find({ id }).value();
+    return db.get("contacts").find({ id }).value();
   }
 
   createContact(body) {
@@ -18,7 +16,7 @@ class ContactsRepository {
       ...body,
     };
 
-    db.get("posts").push(newContact).write();
+    db.get("contacts").push(newContact).write();
 
     return newContact;
   }
@@ -32,7 +30,7 @@ class ContactsRepository {
   }
 
   removeContact(id) {
-    const [contact] = db.get("posts").remove({ id }).write();
+    const [contact] = db.get("contacts").remove({ id }).write();
     return contact;
   }
 }

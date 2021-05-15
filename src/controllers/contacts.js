@@ -1,7 +1,6 @@
 const { HttpCode } = require("../helpers/constants");
 const { ContactsService } = require("../services");
 const contactsServices = new ContactsService();
-const { v4: uuid } = require("uuid");
 
 const getAllContacts = async (req, res, next) => {
   try {
@@ -20,23 +19,22 @@ const getAllContacts = async (req, res, next) => {
 
 const getContactById = async (req, res, next) => {
   try {
-    const contact = await contactsServices.getContactById(req.params);
+    const contact = await contactsServices.getContactById(req.params.contactId);
     if (contact) {
-      res.status(HttpCode.OK).json({
+      return res.status(HttpCode.OK).json({
         status: "success",
         code: HttpCode.OK,
         data: {
           contact,
         },
       });
+    } else {
+      return next({
+        status: HttpCode.NOT_FOUND,
+        message: `Contact does not exist`,
+        data: "Contact does not exist",
+      });
     }
-
-    return next({
-      status: "error",
-      code: HttpCode.NOT_FOUND,
-      message: `Contact by ${req.params} does not exist`,
-      data: "Contact does not exist",
-    });
   } catch (error) {
     next(error);
   }
@@ -45,16 +43,12 @@ const getContactById = async (req, res, next) => {
 const createContact = async (req, res, next) => {
   try {
     const contact = await contactsServices.createContact(req.body);
-    const newContact = {
-      id: uuid(),
-      ...contact,
-    };
 
     res.status(HttpCode.CREATED).json({
       status: "success",
       code: HttpCode.CREATED,
       data: {
-        newContact,
+        contact,
       },
     });
   } catch (error) {
@@ -64,21 +58,20 @@ const createContact = async (req, res, next) => {
 
 const removeContact = async (req, res, next) => {
   try {
-    const contact = await contactsServices.removeContact(req.params);
+    const contact = await contactsServices.removeContact(req.params.contactId);
     if (contact) {
-      res.status(HttpCode.OK).json({
+      return res.status(HttpCode.OK).json({
         status: "success",
         code: HttpCode.OK,
         data: {},
       });
+    } else {
+      return next({
+        status: HttpCode.NOT_FOUND,
+        message: `Contact does not exist`,
+        data: "Contact does not exist",
+      });
     }
-
-    return next({
-      status: "error",
-      code: HttpCode.NOT_FOUND,
-      message: `Contact by ${req.params} does not exist`,
-      data: "Contact does not exist",
-    });
   } catch (error) {
     next(error);
   }
@@ -86,23 +79,25 @@ const removeContact = async (req, res, next) => {
 
 const updateContact = async (req, res, next) => {
   try {
-    const contact = await contactsServices.updateContact(req.params, req.body);
-    if (contact) {
-      res.status(HttpCode.OK).json({
+    const contact = await contactsServices.updateContact(
+      req.params.contactId,
+      req.body
+    );
+    if (contact.id) {
+      return res.status(HttpCode.OK).json({
         status: "success",
         code: HttpCode.OK,
         data: {
           contact,
         },
       });
+    } else {
+      return next({
+        status: HttpCode.NOT_FOUND,
+        message: `Contact does not exist`,
+        data: "Contact does not exist",
+      });
     }
-
-    return next({
-      status: "error",
-      code: HttpCode.NOT_FOUND,
-      message: `Contact by ${req.params} does not exist`,
-      data: "Contact does not exist",
-    });
   } catch (error) {
     next(error);
   }

@@ -24,7 +24,6 @@ class ContactsService {
 
   updateContact(id, body) {
     const data = this.repository.contacts.updateContact(id, body);
-
     return data;
   }
 
