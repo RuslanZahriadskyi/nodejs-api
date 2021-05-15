@@ -11,10 +11,6 @@ router
   .get("/:contactId", contactsControllers.getContactById)
   .post("/", validateCreateContact, contactsControllers.createContact)
   .delete("/:contactId", contactsControllers.removeContact)
-  .patch(
-    "/:contactId",
-    validateUpdateContact,
-    contactsControllers.updateContact
-  );
+  .put("/:contactId", validateUpdateContact, contactsControllers.updateContact);
 
 module.exports = router;
