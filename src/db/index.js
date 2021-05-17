@@ -1,13 +1,20 @@
-// const low = require("lowdb");
-// const path = require("path");
-// const FileSync = require("lowdb/adapters/FileSync");
+const moongose = require("moongoose");
 
-// const adapter = new FileSync(
-//   path.join(__dirname, "..", "..", "model", "contacts.json")
-// );
+require("dotenv").config();
+const dbUri = process.env.DB_URI;
 
-// const db = low(adapter);
+const db = moongose.connect(dbUri, {
+  userUnifieldTopology: true,
+  userCreateIndex: true,
+  userNewUrlParser: true,
+  userFindAndModify: false,
+});
 
-// db.defaults({ contacts: [] }).write();
+process.on("SIGINT", async () => {
+  moongose.connection.close(() => {
+    console.log("DB was discon  nected");
+    process.exit(1);
+  });
+});
 
-// module.exports = db;
+module.exports = db;
