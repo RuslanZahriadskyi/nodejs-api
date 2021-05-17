@@ -43,6 +43,10 @@ const schemaUpdateContact = Joi.object({
     .optional(),
 });
 
+const shemaUpdateStatus = Joi.object({
+  favorite: Joi.boolean().required(),
+});
+
 const validate = (shema, body, next) => {
   const { error } = shema.validate(body);
 
@@ -57,10 +61,14 @@ const validate = (shema, body, next) => {
   next();
 };
 
-module.exports.validateCreateContact = (req, res, next) => {
+module.exports.validateCreateContact = (req, _, next) => {
   return validate(schemaCreateContact, req.body, next);
 };
 
-module.exports.validateUpdateContact = (req, res, next) => {
+module.exports.validateUpdateContact = (req, _, next) => {
   return validate(schemaUpdateContact, req.body, next);
+};
+
+module.exports.validateUpdateStatus = (req, _, next) => {
+  return validate(shemaUpdateStatus, req.body, next);
 };
