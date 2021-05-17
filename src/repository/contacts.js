@@ -1,5 +1,6 @@
 const { v4: uuid } = require("uuid");
 const db = require("../db");
+
 class ContactsRepository {
   getAllContacts() {
     return db.get("contacts").value();
