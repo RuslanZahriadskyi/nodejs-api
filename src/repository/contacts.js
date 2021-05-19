@@ -1,38 +1,53 @@
-const { v4: uuid } = require("uuid");
-const db = require("../db");
+const Contact = require("../schemas/contacts");
 
 class ContactsRepository {
-  getAllContacts() {
-    return db.get("contacts").value();
+  constructor() {
+    this.model = Contact;
   }
 
-  getContactById(id) {
-    return db.get("contacts").find({ id }).value();
+  async getAllContacts() {
+    const contacts = await this.model.find({});
+    return contacts;
   }
 
-  createContact(body) {
-    const id = uuid();
-    const newContact = {
-      id,
-      ...body,
-    };
-
-    db.get("contacts").push(newContact).write();
-
-    return newContact;
+  async getContactById(id) {
+    try {
+      const contact = await this.model.findOne({ _id: id });
+      return contact;
+    } catch (error) {
+      error.status = 400;
+      error.data = "Bad Request";
+      throw error;
+    }
   }
 
-  updateContact(id, body) {
-    const changedContact = db.get("contacts").find({ id }).assign(body).value();
+  async createContact(body) {
+    const contact = await this.model.create(body);
+    return contact;
+  }
 
-    db.write();
+  async updateContact(id, body) {
+    const changedContact = await this.model.findOneAndUpdate(
+      { _id: id },
+      { ...body },
+      { new: true }
+    );
 
     return changedContact;
   }
 
-  removeContact(id) {
-    const [contact] = db.get("contacts").remove({ id }).write();
-    return contact;
+  async removeContact(id) {
+    const deletedContact = await this.model.findOneAndDelete({ _id: id });
+    return deletedContact;
+  }
+
+  async updateStatusContact(id, body) {
+    const newStatus = await this.model.findByIdAndUpdate(
+      { _id: id },
+      { ...body },
+      { new: true }
+    );
+    return newStatus;
   }
 }
 

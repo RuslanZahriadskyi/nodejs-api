@@ -103,10 +103,37 @@ const updateContact = async (req, res, next) => {
   }
 };
 
+const updateStatusContact = async (req, res, next) => {
+  try {
+    const contact = await contactsServices.updateStatusContact(
+      req.params.contactId,
+      req.body
+    );
+    if (contact) {
+      return res.status(HttpCode.OK).json({
+        status: "success",
+        code: HttpCode.OK,
+        data: {
+          contact,
+        },
+      });
+    } else {
+      return next({
+        status: HttpCode.NOT_FOUND,
+        message: `Contact does not exist`,
+        data: "Contact does not exist",
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getAllContacts,
   getContactById,
   createContact,
   removeContact,
   updateContact,
+  updateStatusContact,
 };
