@@ -68,7 +68,7 @@ class ContactsRepository {
   }
 
   async updateStatusContact(userId, id, body) {
-    const newStatus = await this.model.findByIdAndUpdate(
+    const newStatus = await this.model.findOneAndUpdate(
       { _id: id, owner: userId },
       { ...body },
       { new: true }

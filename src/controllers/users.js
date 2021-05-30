@@ -86,44 +86,31 @@ const currentUser = async (req, res, next) => {
 
 const updateSubscriptionStatus = async (req, res, next) => {
   try {
-    const user = await userService.updateSubscriptionStatus(req.user.id);
-
+    const user = await userService.updateSubscriptionStatus(
+      req.user.id,
+      req.body
+    );
     if (user) {
       return res.status(HttpCode.OK).json({
         status: "success",
         code: HttpCode.OK,
-        data: { user },
+        data: {
+          user: {
+            name: user.name,
+            email: user.email,
+            subscription: user.subscription,
+          },
+        },
       });
     }
     next({
       status: HttpCode.UNAUTHORIZED,
-      message: "You are not authorized, please login on your account",
+      message: "You are not authorized",
     });
   } catch (error) {
-    console.log(error);
     next(error);
   }
 };
-// const updateSubscriptionStatus = async (req, res, next) => {
-//   try {
-//     //   const userId = req.user.id;
-//     console.log(req.user);
-//     const user = await userService.updateSubscriptionStatus(req.body);
-//     if (user) {
-//       return res.status(HttpCode.OK).json({
-//         status: "success",
-//         code: HttpCode.OK,
-//         data: { user },
-//       });
-//     }
-//     next({
-//       status: HttpCode.UNAUTHORIZED,
-//       message: "You are not authorized",
-//     });
-//   } catch (error) {
-//     next(error);
-//   }
-// };
 
 module.exports = {
   reg,

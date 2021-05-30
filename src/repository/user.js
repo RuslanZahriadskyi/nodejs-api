@@ -29,19 +29,14 @@ class UserRepository {
     return { name, email, subscription };
   }
 
-  async updateSubscriptionStatus(id) {
-    const { name, email, subscription } = await this.User.findOne({ _id: id });
-    return { name, email, subscription };
+  async updateSubscriptionStatus(id, body) {
+    const user = await this.User.findOneAndUpdate(
+      { _id: id },
+      { ...body },
+      { new: true }
+    );
+    return user;
   }
-  //   async updateSubscriptionStatus(id, body) {
-  //     console.log(id);
-  //     const user = await this.User.findOneAndUpdate(
-  //       { _id: id },
-  //       { ...body },
-  //       { new: true }
-  //     );
-  //     return user;
-  //   }
 }
 
 module.exports = UserRepository;

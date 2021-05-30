@@ -6,14 +6,18 @@ const {
   createAccountLimiter,
   loginLimiter,
 } = require("../../helpers/rate-limit");
-// const { validateUpdateSubscriptionStatus } = require("../../validator/users");
+const { validateUpdateSubscriptionStatus } = require("../../validator/users");
 
 router
   .post("/registration", createAccountLimiter, usersControllers.reg)
   .post("/login", loginLimiter, usersControllers.login)
   .post("/logout", guard, usersControllers.logout)
-  .get("/current", guard, usersControllers.currentUser);
-
-router.patch("/", guard, usersControllers.updateSubscriptionStatus);
+  .get("/current", guard, usersControllers.currentUser)
+  .post(
+    "/",
+    guard,
+    validateUpdateSubscriptionStatus,
+    usersControllers.updateSubscriptionStatus
+  );
 
 module.exports = router;

@@ -27,8 +27,8 @@ class UsersService {
     return data;
   }
 
-  async updateSubscriptionStatus(id) {
-    const data = await this.repository.users.updateSubscriptionStatus(id);
+  async updateSubscriptionStatus(id, body) {
+    const data = await this.repository.users.updateSubscriptionStatus(id, body);
     return data;
   }
 }
