@@ -6,15 +6,24 @@ const {
   validateUpdateContact,
   validateUpdateStatus,
 } = require("../../validator/contacts");
+const guard = require("../../helpers/guard");
 
 router
-  .get("/", contactsControllers.getAllContacts)
-  .get("/:contactId", contactsControllers.getContactById)
-  .post("/", validateCreateContact, contactsControllers.createContact)
-  .delete("/:contactId", contactsControllers.removeContact)
-  .put("/:contactId", validateUpdateContact, contactsControllers.updateContact)
+  .get("/", guard, contactsControllers.getAllContacts)
+  .post("/", guard, validateCreateContact, contactsControllers.createContact);
+
+router
+  .get("/:contactId", guard, contactsControllers.getContactById)
+  .delete("/:contactId", guard, contactsControllers.removeContact)
+  .put(
+    "/:contactId",
+    guard,
+    validateUpdateContact,
+    contactsControllers.updateContact
+  )
   .patch(
     "/:contactId",
+    guard,
     validateUpdateStatus,
     contactsControllers.updateStatusContact
   );

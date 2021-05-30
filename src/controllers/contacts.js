@@ -4,12 +4,13 @@ const contactsServices = new ContactsService();
 
 const getAllContacts = async (req, res, next) => {
   try {
-    const contacts = await contactsServices.getAllContacts();
+    const userId = req.user.id;
+    const contacts = await contactsServices.getAllContacts(userId, req.query);
     res.status(HttpCode.OK).json({
       status: "success",
       code: HttpCode.OK,
       data: {
-        contacts,
+        ...contacts,
       },
     });
   } catch (error) {
@@ -19,7 +20,11 @@ const getAllContacts = async (req, res, next) => {
 
 const getContactById = async (req, res, next) => {
   try {
-    const contact = await contactsServices.getContactById(req.params.contactId);
+    const userId = req.user.id;
+    const contact = await contactsServices.getContactById(
+      userId,
+      req.params.contactId
+    );
     if (contact) {
       return res.status(HttpCode.OK).json({
         status: "success",
@@ -42,7 +47,8 @@ const getContactById = async (req, res, next) => {
 
 const createContact = async (req, res, next) => {
   try {
-    const contact = await contactsServices.createContact(req.body);
+    const userId = req.user.id;
+    const contact = await contactsServices.createContact(userId, req.body);
 
     res.status(HttpCode.CREATED).json({
       status: "success",
@@ -58,7 +64,11 @@ const createContact = async (req, res, next) => {
 
 const removeContact = async (req, res, next) => {
   try {
-    const contact = await contactsServices.removeContact(req.params.contactId);
+    const userId = req.user.id;
+    const contact = await contactsServices.removeContact(
+      userId,
+      req.params.contactId
+    );
     if (contact) {
       return res.status(HttpCode.OK).json({
         status: "success",
@@ -79,10 +89,20 @@ const removeContact = async (req, res, next) => {
 
 const updateContact = async (req, res, next) => {
   try {
+    const userId = req.user.id;
     const contact = await contactsServices.updateContact(
+      userId,
       req.params.contactId,
       req.body
     );
+    if (contact === null) {
+      return next({
+        status: HttpCode.NOT_FOUND,
+        message: `Contact does not exist`,
+        data: "Contact does not exist",
+      });
+    }
+
     if (contact.id) {
       return res.status(HttpCode.OK).json({
         status: "success",
@@ -99,13 +119,16 @@ const updateContact = async (req, res, next) => {
       });
     }
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };
 
 const updateStatusContact = async (req, res, next) => {
   try {
+    const userId = req.user.id;
     const contact = await contactsServices.updateStatusContact(
+      userId,
       req.params.contactId,
       req.body
     );
