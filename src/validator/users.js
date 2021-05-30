@@ -1,6 +1,5 @@
 const Joi = require("joi");
-const HttpCode = require("../helpers/constants");
-const { Subscription } = require("../helpers/constants");
+const { Subscription, HttpCode } = require("../helpers/constants");
 
 const shemaUpdateSubscriptionStatus = Joi.object({
   subscription: Joi.string()
