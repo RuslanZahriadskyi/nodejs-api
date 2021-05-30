@@ -4,7 +4,7 @@ const userService = new UsersService();
 const authService = new AuthService();
 
 const reg = async (req, res, next) => {
-  const { name, email, password, subcription } = req.body;
+  const { name, email, password, subscription } = req.body;
   const user = await userService.getUserByEmail(email);
   if (user) {
     return next({
@@ -17,7 +17,7 @@ const reg = async (req, res, next) => {
       name,
       email,
       password,
-      subcription,
+      subscription,
     });
     return res.status(HttpCode.CREATED).json({
       status: "success",
@@ -25,7 +25,7 @@ const reg = async (req, res, next) => {
       data: {
         id: newUser.id,
         email: newUser.email,
-        subcription: newUser.subcription,
+        subscription: newUser.subscription,
       },
     });
   } catch (error) {

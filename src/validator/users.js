@@ -1,8 +1,11 @@
 const Joi = require("joi");
 const HttpCode = require("../helpers/constants");
+const { Subscription } = require("../helpers/constants");
 
 const shemaUpdateSubscriptionStatus = Joi.object({
-  subscription: Joi.string().required(),
+  subscription: Joi.string()
+    .valid(Subscription.STARTER, Subscription.PRO, Subscription.BUSINESS)
+    .required(),
 });
 
 const validate = (shema, body, next) => {

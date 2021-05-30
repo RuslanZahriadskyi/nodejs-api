@@ -3,8 +3,8 @@ const { HttpCode } = require("./constants");
 const { createUserLimit } = require("../config/rate-limit.json");
 
 const createAccountLimiter = rateLimit({
-  windowMs: createUserLimit.windowMs, // 1 hour window
-  max: createUserLimit.max, // start blocking after 3 requests
+  windowMs: createUserLimit.windowMs, // time - createUserLimit.windowMs window
+  max: createUserLimit.max, // start blocking after createUserLimit.max requests
   handler: (_req, res) => {
     res.status(HttpCode.BAD_REQUEST).json({
       status: "error",
@@ -16,8 +16,8 @@ const createAccountLimiter = rateLimit({
 });
 
 const loginLimiter = rateLimit({
-  windowMs: createUserLimit.windowMs, // 1 hour window
-  max: createUserLimit.max, // start blocking after 3 requests
+  windowMs: createUserLimit.windowMs, // time - createUserLimit.windowMs window
+  max: createUserLimit.max, // start blocking after createUserLimit.max requests
   handler: (_req, res) => {
     res.status(HttpCode.BAD_REQUEST).json({
       status: "error",
