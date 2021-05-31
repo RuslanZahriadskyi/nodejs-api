@@ -5,14 +5,38 @@ class ContactsRepository {
     this.model = Contact;
   }
 
-  async getAllContacts() {
-    const contacts = await this.model.find({});
-    return contacts;
+  async getAllContacts(
+    userId,
+    { limit = 5, offset = 0, sortBy, sortByDesc, filter }
+  ) {
+    const result = await this.model.paginate(
+      { owner: userId },
+      {
+        limit,
+        offset,
+        sort: {
+          ...(sortBy ? { [`${sortBy}`]: 1 } : {}),
+          ...(sortByDesc ? { [`${sortByDesc}`]: 1 } : {}),
+        },
+        select: filter ? filter.split("|").join("") : "",
+        populate: {
+          path: "owner",
+          select: "name email subscription",
+        },
+      }
+    );
+
+    return result;
   }
 
-  async getContactById(id) {
+  async getContactById(userId, id) {
     try {
-      const contact = await this.model.findOne({ _id: id });
+      const contact = await this.model
+        .findOne({ _id: id, owner: userId })
+        .populate({
+          path: "owner",
+          select: "name email subscription",
+        });
       return contact;
     } catch (error) {
       error.status = 400;
@@ -21,29 +45,31 @@ class ContactsRepository {
     }
   }
 
-  async createContact(body) {
-    const contact = await this.model.create(body);
+  async createContact(userId, body) {
+    const contact = await this.model.create({ ...body, owner: userId });
     return contact;
   }
 
-  async updateContact(id, body) {
+  async updateContact(userId, id, body) {
     const changedContact = await this.model.findOneAndUpdate(
-      { _id: id },
+      { _id: id, owner: userId },
       { ...body },
       { new: true }
     );
-
     return changedContact;
   }
 
-  async removeContact(id) {
-    const deletedContact = await this.model.findOneAndDelete({ _id: id });
+  async removeContact(userId, id) {
+    const deletedContact = await this.model.findOneAndDelete({
+      _id: id,
+      owner: userId,
+    });
     return deletedContact;
   }
 
-  async updateStatusContact(id, body) {
-    const newStatus = await this.model.findByIdAndUpdate(
-      { _id: id },
+  async updateStatusContact(userId, id, body) {
+    const newStatus = await this.model.findOneAndUpdate(
+      { _id: id, owner: userId },
       { ...body },
       { new: true }
     );
