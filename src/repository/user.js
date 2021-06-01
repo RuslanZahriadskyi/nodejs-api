@@ -37,6 +37,15 @@ class UserRepository {
     );
     return user;
   }
+
+  async updateAvatars(id, avatar, avatarId) {
+    await this.User.updateOne({ _id: id }, { avatar, avatarId });
+  }
+
+  async getAvatar(id) {
+    const { avatar, avatarId } = await this.User.findOne({ _id: id });
+    return { avatar, avatarId };
+  }
 }
 
 module.exports = UserRepository;

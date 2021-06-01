@@ -8,6 +8,8 @@ const {
 } = require("../../helpers/rate-limit");
 const { validateUpdateSubscriptionStatus } = require("../../validator/users");
 
+const upload = require("../../helpers/multer");
+
 router
   .post("/registration", createAccountLimiter, usersControllers.reg)
   .post("/login", loginLimiter, usersControllers.login)
@@ -18,6 +20,7 @@ router
     guard,
     validateUpdateSubscriptionStatus,
     usersControllers.updateSubscriptionStatus
-  );
+  )
+  .patch("/avatars", guard, upload.single("avatar"), usersControllers.avatars);
 
 module.exports = router;

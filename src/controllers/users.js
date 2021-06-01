@@ -4,7 +4,7 @@ const userService = new UsersService();
 const authService = new AuthService();
 
 const reg = async (req, res, next) => {
-  const { name, email, password, subscription } = req.body;
+  const { name, email, password, subscription, avatar } = req.body;
   const user = await userService.getUserByEmail(email);
   if (user) {
     return next({
@@ -18,6 +18,7 @@ const reg = async (req, res, next) => {
       email,
       password,
       subscription,
+      avatar,
     });
     return res.status(HttpCode.CREATED).json({
       status: "success",
@@ -26,6 +27,7 @@ const reg = async (req, res, next) => {
         id: newUser.id,
         email: newUser.email,
         subscription: newUser.subscription,
+        avatar: newUser.avatar,
       },
     });
   } catch (error) {
@@ -112,10 +114,22 @@ const updateSubscriptionStatus = async (req, res, next) => {
   }
 };
 
+const avatars = async (req, res, next) => {
+  const userId = req.user.id;
+  const pathFile = req.file.path;
+  const url = await userService.updateAvatars(userId, pathFile);
+  return res.status(HttpCode.OK).json({
+    status: "success",
+    code: HttpCode.OK,
+    avatarUrl: url,
+  });
+};
+
 module.exports = {
   reg,
   login,
   logout,
   currentUser,
   updateSubscriptionStatus,
+  avatars,
 };
