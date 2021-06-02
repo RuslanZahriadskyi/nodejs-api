@@ -6,7 +6,7 @@ const getAllContacts = async (req, res, next) => {
   try {
     const userId = req.user.id;
     const contacts = await contactsServices.getAllContacts(userId, req.query);
-    res.status(HttpCode.OK).json({
+    return res.status(HttpCode.OK).json({
       status: "success",
       code: HttpCode.OK,
       data: {
@@ -50,7 +50,7 @@ const createContact = async (req, res, next) => {
     const userId = req.user.id;
     const contact = await contactsServices.createContact(userId, req.body);
 
-    res.status(HttpCode.CREATED).json({
+    return res.status(HttpCode.CREATED).json({
       status: "success",
       code: HttpCode.CREATED,
       data: {
