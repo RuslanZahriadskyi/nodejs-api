@@ -11,13 +11,45 @@ const mockGetContactById = jest.fn((userId, id) => {
   return contact;
 });
 
-const mockCreateContact = jest.fn();
+const mockCreateContact = jest.fn((userId, body) => {
+  contacts.push({ ...body, _id: "60abf0a78955325d2c90895z" });
+  return { ...body, _id: "60abf0a78955325d2c90895z" };
+});
 
-const mockUpdateContact = jest.fn();
+const mockUpdateContact = jest.fn((userId, id, body) => {
+  const [contact] = contacts.filter((el) => {
+    return String(el._id) === String(id) && String(el.owner) === String(userId);
+  });
 
-const mockrRemoveContact = jest.fn();
+  if (contact) {
+    contact.name = body.name;
+  }
 
-const mockUpdateStatusContact = jest.fn();
+  return contact;
+});
+
+const mockRemoveContact = jest.fn((userId, id) => {
+  const index = contacts.findIndex(
+    (el) => String(el._id) === String(id) && String(el.owner) === String(userId)
+  );
+  if (index !== -1) {
+    const [contact] = contacts.splice(index, 1);
+    return contact;
+  }
+  return null;
+});
+
+const mockUpdateStatusContact = jest.fn((userId, id, body) => {
+  const [contact] = contacts.filter((el) => {
+    return String(el._id) === String(id) && String(el.owner) === String(userId);
+  });
+
+  if (contact) {
+    contact.favorite = body.favorite;
+  }
+
+  return contact;
+});
 
 const ContactsService = jest.fn().mockImplementation(() => {
   return {
@@ -25,7 +57,7 @@ const ContactsService = jest.fn().mockImplementation(() => {
     getContactById: mockGetContactById,
     createContact: mockCreateContact,
     updateContact: mockUpdateContact,
-    removeContact: mockrRemoveContact,
+    removeContact: mockRemoveContact,
     updateStatusContact: mockUpdateStatusContact,
   };
 });

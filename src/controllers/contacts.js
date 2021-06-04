@@ -25,6 +25,7 @@ const getContactById = async (req, res, next) => {
       userId,
       req.params.contactId
     );
+
     if (contact) {
       return res.status(HttpCode.OK).json({
         status: "success",
@@ -73,7 +74,7 @@ const removeContact = async (req, res, next) => {
       return res.status(HttpCode.OK).json({
         status: "success",
         code: HttpCode.OK,
-        data: {},
+        data: { contact },
       });
     } else {
       return next({
@@ -95,15 +96,8 @@ const updateContact = async (req, res, next) => {
       req.params.contactId,
       req.body
     );
-    if (contact === null) {
-      return next({
-        status: HttpCode.NOT_FOUND,
-        message: `Contact does not exist`,
-        data: "Contact does not exist",
-      });
-    }
 
-    if (contact.id) {
+    if (contact?._id) {
       return res.status(HttpCode.OK).json({
         status: "success",
         code: HttpCode.OK,

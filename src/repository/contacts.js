@@ -5,10 +5,9 @@ class ContactsRepository {
     this.model = Contact;
   }
 
-  async getAllContacts(
-    userId,
-    { limit = 5, offset = 0, sortBy, sortByDesc, filter }
-  ) {
+  async getAllContacts(userId, query) {
+    const { limit = 5, offset = 0, sortBy, sortByDesc, filter } = query;
+
     const result = await this.model.paginate(
       { owner: userId },
       {
