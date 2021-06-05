@@ -39,6 +39,7 @@ const login = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const token = await authService.login({ email, password });
+
     if (token) {
       return res.status(HttpCode.OK).json({
         status: "success",

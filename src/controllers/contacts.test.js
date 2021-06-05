@@ -105,7 +105,7 @@ describe("Unit testing contacts controlller", () => {
     expect(result.data.contact).toHaveProperty("name", name);
   });
 
-  test("should get error when try update non existing    contact ", async () => {
+  test("should get error when try update non existing contact ", async () => {
     req.params = { contactId: 1 };
     const name = "Updated Contact";
     req.body = { name };
@@ -165,10 +165,7 @@ describe("Unit testing contacts controlller", () => {
     req.body = { favorite };
     req.user.id = owner;
 
-    console.log(req.body);
-
     const result = await contacts.updateStatusContact(req, res, next);
-    console.log(result);
     expect(ContactsService).toHaveBeenCalled();
     expect(result).toBeDefined();
     expect(result.data.contact).toHaveProperty("_id", _id);

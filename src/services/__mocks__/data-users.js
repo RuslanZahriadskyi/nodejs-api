@@ -5,7 +5,7 @@ const users = [
     subscription: "none",
     token: null,
     email: "user1@mail.com",
-    password: "123456789",
+    password: "1234567890",
   },
 
   {
@@ -14,7 +14,7 @@ const users = [
     subscription: "none",
     token: null,
     email: "user2@mail.com",
-    password: "123456789",
+    password: "1234567890",
   },
 ];
 
@@ -23,7 +23,7 @@ const newUser = {
   subscription: "none",
   token: null,
   email: "newUser@mail.com",
-  password: "123456789",
+  password: "1234567890",
 };
 
 module.exports = { users, newUser };

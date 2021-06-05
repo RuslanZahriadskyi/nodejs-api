@@ -12,6 +12,10 @@ class AuthService {
 
   async login({ email, password }) {
     const user = await this.repository.users.getUserByEmail(email);
+    console.log(
+      "🚀 ~ file: auth.js ~ line 15 ~ AuthService ~ login ~ user",
+      user
+    );
     if (!user || !user.validPassword(password)) {
       return null;
     }

@@ -1,4 +1,5 @@
 const { contacts } = require("./data-contacts");
+const { users } = require("./data-users");
 
 const mockGetAllContacs = jest.fn(() => {
   return { contacts, total: contacts.length, limit: 2, offset: 0 };
@@ -62,12 +63,33 @@ const ContactsService = jest.fn().mockImplementation(() => {
   };
 });
 
+const mockLogin = jest.fn(({ email, password }) => {
+  const user = users.find(
+    (el) => el.email === email && el.password === password
+  );
+  console.log("🚀 ~ file: index.js ~ line 70 ~ mockLogin ~ user", user);
+
+  if (user) {
+    user.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9";
+  }
+
+  return user.token;
+});
+
+const mockLogout = jest.fn((id) => {
+  const [user] = users.find((el) => el.id === id);
+
+  if (user) {
+    user.token = null;
+  }
+
+  return user;
+});
+
 const AuthService = jest.fn().mockImplementation(() => {
   return {
-    // login: mockLogin,
-    // logout: mockLogout,
-    login: jest.fn(),
-    logout: jest.fn(),
+    login: mockLogin,
+    logout: mockLogout,
   };
 });
 
