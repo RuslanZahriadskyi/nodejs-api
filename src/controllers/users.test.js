@@ -6,6 +6,7 @@ const { AuthService } = require("../services");
 const {
   users: usersFake,
   newUser,
+  newUserError,
 } = require("../services/__mocks__/data-users");
 
 jest.mock("../services");
@@ -32,5 +33,101 @@ describe("Unit testing auth controlller", () => {
     expect(AuthService).toHaveBeenCalled();
     expect(result).toBeDefined();
     expect(result.data).toHaveProperty("token", token);
+  });
+
+  test("should get error when try login user", async () => {
+    const email = "error@gmail.com";
+    const password = "1111111";
+
+    req.body = { email, password };
+
+    await users.login(req, res, next);
+    expect(next).toBeCalledTimes(1);
+    expect(next).toBeCalledWith({
+      status: HttpCode.UNAUTHORIZED,
+      message: "Invalid creadentials",
+    });
+  });
+
+  test("should be error when try login user without email", async () => {
+    await users.login({}, res, next);
+    expect(next).toBeCalledTimes(1);
+  });
+
+  test("should logout user", async () => {
+    const { _id } = usersFake[0];
+
+    req.user.id = _id;
+
+    const result = await users.logout(req, res, next);
+    expect(AuthService).toHaveBeenCalled();
+    expect(result).toStrictEqual({
+      code: HttpCode.NO_CONTENT,
+      status: "success",
+    });
+  });
+});
+
+describe("Unit testing auth controlller", () => {
+  let req, res, next;
+  beforeEach(() => {
+    req = { user: { id: 1 } };
+    res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn((data) => data),
+    };
+    next = jest.fn((data) => data);
+  });
+
+  test("should create new user", async () => {
+    const { email, subscription } = newUser;
+
+    req.body = newUser;
+    const result = await users.reg(req, res, next);
+
+    expect(UsersService).toHaveBeenCalled();
+    expect(result).toBeDefined();
+    expect(result.data).toHaveProperty("id");
+    expect(result.data).toHaveProperty("email", email);
+    expect(result.data).toHaveProperty("subscription", subscription);
+  });
+
+  test("should get error when try create new user with existing email", async () => {
+    req.body = newUserError;
+
+    await users.reg(req, res, next);
+
+    expect(UsersService).toHaveBeenCalled();
+    expect(next).toBeCalledTimes(1);
+    expect(next).toReturnTimes(1);
+    expect(next).toBeCalledWith({
+      status: HttpCode.CONFLICT,
+      message: "This email already exist",
+    });
+  });
+
+  test("should get current user", async () => {
+    const { _id, name, email, subscription } = usersFake[0];
+
+    req.user.id = _id;
+
+    const result = await users.currentUser(req, res, next);
+    expect(UsersService).toHaveBeenCalled();
+    expect(result).toBeDefined();
+    expect(result.data.user).toHaveProperty("name", name);
+    expect(result.data.user).toHaveProperty("email", email);
+    expect(result.data.user).toHaveProperty("subscription", subscription);
+  });
+
+  test("should be error when try get current user", async () => {
+    req.user.id = 1;
+
+    await users.currentUser(req, res, next);
+    expect(UsersService).toHaveBeenCalled();
+    expect(next).toBeCalledTimes(1);
+    expect(next).toBeCalledWith({
+      status: HttpCode.UNAUTHORIZED,
+      message: "You are not authorized, please login on your account",
+    });
   });
 });

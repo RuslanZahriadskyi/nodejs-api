@@ -16,9 +16,25 @@ const users = [
     email: "user2@mail.com",
     password: "1234567890",
   },
+  {
+    _id: "60abf153ff100f54e40f3bd9",
+    name: "user3",
+    subscription: "none",
+    token: null,
+    email: "newUser@mail.com",
+    password: "1234567890",
+  },
 ];
 
 const newUser = {
+  name: "newUser",
+  subscription: "none",
+  token: null,
+  email: "newUser1@mail.com",
+  password: "1234567890",
+};
+
+const newUserError = {
   name: "newUser",
   subscription: "none",
   token: null,
@@ -26,4 +42,4 @@ const newUser = {
   password: "1234567890",
 };
 
-module.exports = { users, newUser };
+module.exports = { users, newUser, newUserError };

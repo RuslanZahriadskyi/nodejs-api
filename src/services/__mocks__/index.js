@@ -67,23 +67,22 @@ const mockLogin = jest.fn(({ email, password }) => {
   const user = users.find(
     (el) => el.email === email && el.password === password
   );
-  console.log("🚀 ~ file: index.js ~ line 70 ~ mockLogin ~ user", user);
 
   if (user) {
-    user.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9";
+    return (user.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9");
   }
 
-  return user.token;
+  return;
 });
 
 const mockLogout = jest.fn((id) => {
-  const [user] = users.find((el) => el.id === id);
+  const user = users.find((el) => el._id === id);
 
   if (user) {
     user.token = null;
   }
 
-  return user;
+  return;
 });
 
 const AuthService = jest.fn().mockImplementation(() => {
@@ -93,20 +92,40 @@ const AuthService = jest.fn().mockImplementation(() => {
   };
 });
 
+const mockCreate = jest.fn((body) => {
+  users.push({ ...body, id: "60abf0a78955325d2c90895z" });
+  return { ...body, id: "60abf0a78955325d2c90895z" };
+});
+
+const mockGetUserByEmail = jest.fn((email) => {
+  const userByEmail = users.find((el) => {
+    return el.email === email;
+  });
+  return userByEmail;
+});
+
+const mockGetUserById = jest.fn((id) => {
+  const userById = users.find((el) => el._id === id);
+  return userById;
+});
+
+const mockGetCurrentUser = jest.fn((id) => {
+  const userCurrentUser = users.find((el) => el._id === id);
+  return userCurrentUser;
+});
+
+const mockrUpdateSubscriptionStatus = jest.fn((id, body) => {});
+
+const mockUpdateAvatars = jest.fn((id, filePath) => {});
+
 const UsersService = jest.fn().mockImplementation(() => {
   return {
-    // create: mockCreate,
-    // getUserByEmail: mockGetUserByEmail,
-    // getUserById: mockGetUserById,
-    // getCurrentUser: mockGetCurrentUser,
-    // updateSubscriptionStatus: mockrUpdateSubscriptionStatus,
-    // updateAvatars: mockUpdateAvatars,
-    create: jest.fn(),
-    getUserByEmail: jest.fn(),
-    getUserById: jest.fn(),
-    getCurrentUser: jest.fn(),
-    updateSubscriptionStatus: jest.fn(),
-    updateAvatars: jest.fn(),
+    create: mockCreate,
+    getUserByEmail: mockGetUserByEmail,
+    getUserById: mockGetUserById,
+    getCurrentUser: mockGetCurrentUser,
+    updateSubscriptionStatus: mockrUpdateSubscriptionStatus,
+    updateAvatars: mockUpdateAvatars,
   };
 });
 

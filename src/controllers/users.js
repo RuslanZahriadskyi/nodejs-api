@@ -36,8 +36,8 @@ const reg = async (req, res, next) => {
 };
 
 const login = async (req, res, next) => {
-  const { email, password } = req.body;
   try {
+    const { email, password } = req.body;
     const token = await authService.login({ email, password });
 
     if (token) {
@@ -70,7 +70,6 @@ const logout = async (req, res, next) => {
 const currentUser = async (req, res, next) => {
   try {
     const user = await userService.getCurrentUser(req.user.id);
-
     if (user) {
       return res.status(HttpCode.OK).json({
         status: "success",
