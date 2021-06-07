@@ -70,6 +70,11 @@ usersSchema.path("email").validate(function (value) {
   return regExt.test(String(value).toLowerCase());
 });
 
+usersSchema.path("password").validate(function (value) {
+  const regExt = /^[a-zA-Z0-9]{7,30}$/;
+  return regExt.test(String(value));
+});
+
 usersSchema.methods.validPassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };

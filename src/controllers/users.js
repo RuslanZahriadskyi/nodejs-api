@@ -117,7 +117,9 @@ const updateSubscriptionStatus = async (req, res, next) => {
 const avatars = async (req, res, next) => {
   const userId = req.user.id;
   const pathFile = req.file.path;
+
   const url = await userService.updateAvatars(userId, pathFile);
+
   return res.status(HttpCode.OK).json({
     status: "success",
     code: HttpCode.OK,

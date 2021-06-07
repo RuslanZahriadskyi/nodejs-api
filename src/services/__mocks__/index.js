@@ -105,7 +105,9 @@ const mockGetUserByEmail = jest.fn((email) => {
 });
 
 const mockGetUserById = jest.fn((id) => {
-  const userById = users.find((el) => el._id === id);
+  const userById = users.find((el) => {
+    return String(el._id) === String(id);
+  });
   return userById;
 });
 
@@ -116,7 +118,9 @@ const mockGetCurrentUser = jest.fn((id) => {
 
 const mockrUpdateSubscriptionStatus = jest.fn((id, body) => {});
 
-const mockUpdateAvatars = jest.fn((id, filePath) => {});
+const mockUpdateAvatars = jest.fn((id, filePath) => {
+  return filePath;
+});
 
 const UsersService = jest.fn().mockImplementation(() => {
   return {
