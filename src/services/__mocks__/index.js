@@ -112,11 +112,20 @@ const mockGetUserById = jest.fn((id) => {
 });
 
 const mockGetCurrentUser = jest.fn((id) => {
-  const userCurrentUser = users.find((el) => el._id === id);
-  return userCurrentUser;
+  const сurrentUser = users.find((el) => el._id === id);
+  return сurrentUser;
 });
 
-const mockrUpdateSubscriptionStatus = jest.fn((id, body) => {});
+const mockrUpdateSubscriptionStatus = jest.fn((id, body) => {
+  const findUserForUpdate = users.find((el) => el._id === id);
+
+  if (findUserForUpdate) {
+    findUserForUpdate.subscription = body;
+    return findUserForUpdate;
+  }
+
+  return null;
+});
 
 const mockUpdateAvatars = jest.fn((id, filePath) => {
   return filePath;

@@ -14,7 +14,7 @@ jest.mock("../services");
 describe("Unit testing auth controlller", () => {
   let req, res, next;
   beforeEach(() => {
-    req = { user: { id: 1 } };
+    req = { user: { id: 12 } };
     res = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn((data) => data),
@@ -23,7 +23,7 @@ describe("Unit testing auth controlller", () => {
   });
 
   test("should login user", async () => {
-    const { email, password } = usersFake[0];
+    const { email, password } = usersFake[1];
 
     const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9";
     req.body = { email, password };
@@ -55,7 +55,7 @@ describe("Unit testing auth controlller", () => {
   });
 
   test("should logout user", async () => {
-    const { _id } = usersFake[0];
+    const { _id } = usersFake[1];
 
     req.user.id = _id;
 
@@ -71,7 +71,7 @@ describe("Unit testing auth controlller", () => {
 describe("Unit testing auth controlller", () => {
   let req, res, next;
   beforeEach(() => {
-    req = { user: { id: 1 } };
+    req = { user: { id: 12 } };
     res = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn((data) => data),
@@ -79,35 +79,42 @@ describe("Unit testing auth controlller", () => {
     next = jest.fn((data) => data);
   });
 
-  test("should create new user", async () => {
-    const { email, subscription } = newUser;
+  // test("should create new user", async () => {
+  //   const { email, subscription } = newUser;
 
-    req.body = newUser;
-    const result = await users.reg(req, res, next);
+  //   req.body = newUser;
+  //   const result = await users.reg(req, res, next);
 
-    expect(UsersService).toHaveBeenCalled();
-    expect(result).toBeDefined();
-    expect(result.data).toHaveProperty("id");
-    expect(result.data).toHaveProperty("email", email);
-    expect(result.data).toHaveProperty("subscription", subscription);
-  });
+  //   expect(UsersService).toHaveBeenCalled();
+  //   expect(result).toBeDefined();
+  //   expect(result.data).toHaveProperty("id");
+  //   expect(result.data).toHaveProperty("email", email);
+  //   expect(result.data).toHaveProperty("subscription", subscription);
+  // });
 
-  test("should get error when try create new user with existing email", async () => {
-    req.body = newUserError;
+  // test("should get error when try create new user with existing email", async () => {
+  //   req.body = newUserError;
 
+  //   await users.reg(req, res, next);
+
+  //   expect(UsersService).toHaveBeenCalled();
+  //   expect(next).toBeCalledTimes(1);
+  //   expect(next).toReturnTimes(1);
+  //   expect(next).toBeCalledWith({
+  //     status: HttpCode.CONFLICT,
+  //     message: "This email already exist",
+  //   });
+  // });
+
+  test("should get error when try create new user", async () => {
     await users.reg(req, res, next);
 
     expect(UsersService).toHaveBeenCalled();
     expect(next).toBeCalledTimes(1);
-    expect(next).toReturnTimes(1);
-    expect(next).toBeCalledWith({
-      status: HttpCode.CONFLICT,
-      message: "This email already exist",
-    });
   });
 
   test("should get current user", async () => {
-    const { _id, name, email, subscription } = usersFake[0];
+    const { _id, name, email, subscription } = usersFake[1];
 
     req.user.id = _id;
 
@@ -119,8 +126,8 @@ describe("Unit testing auth controlller", () => {
     expect(result.data.user).toHaveProperty("subscription", subscription);
   });
 
-  test("should be error when try get current user", async () => {
-    req.user.id = 1;
+  test("should be error unauthorized when try get current user", async () => {
+    req.user.id = 11;
 
     await users.currentUser(req, res, next);
     expect(UsersService).toHaveBeenCalled();
@@ -129,5 +136,46 @@ describe("Unit testing auth controlller", () => {
       status: HttpCode.UNAUTHORIZED,
       message: "You are not authorized, please login on your account",
     });
+  });
+
+  test("should be error when try get current user", async () => {
+    await users.currentUser({}, res, next);
+    expect(UsersService).toHaveBeenCalled();
+    expect(next).toBeCalledTimes(1);
+  });
+
+  test(" should update user subscription", async () => {
+    const { _id, name, email } = usersFake[1];
+
+    const subscription = "pro";
+
+    req.body = subscription;
+    req.user.id = _id;
+    const result = await users.updateSubscriptionStatus(req, res, next);
+    expect(UsersService).toHaveBeenCalled();
+    expect(result).toBeDefined();
+    expect(result.data.user).toHaveProperty("name", name);
+    expect(result.data.user).toHaveProperty("email", email);
+    expect(result.data.user).toHaveProperty("subscription", subscription);
+  });
+
+  test(" should return error unauthorized when try update user subscription", async () => {
+    const subscription = "pro";
+
+    req.body = subscription;
+
+    await users.updateSubscriptionStatus(req, res, next);
+    expect(UsersService).toHaveBeenCalled();
+    expect(next).toBeCalledTimes(1);
+    expect(next).toBeCalledWith({
+      status: HttpCode.UNAUTHORIZED,
+      message: "You are not authorized",
+    });
+  });
+
+  test(" should return error when try update user subscription", async () => {
+    await users.updateSubscriptionStatus({}, res, next);
+    expect(UsersService).toHaveBeenCalled();
+    expect(next).toBeCalledTimes(1);
   });
 });

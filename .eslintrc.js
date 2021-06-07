@@ -6,7 +6,7 @@ module.exports = {
     "jest/globals": true,
   },
   plugins: ["jest"],
-  extends: ["standard", "prettier", "plugin:jest/recommended"],
+  extends: ["standard", "prettier", "plugin:jest/all"],
   parserOptions: {
     ecmaVersion: 12,
   },
@@ -18,6 +18,6 @@ module.exports = {
     "jest/no-identical-title": "error",
     "jest/prefer-to-have-length": "warn",
     "jest/valid-expect": "error",
-    "jest/no-mocks-import": "on",
+    "jest/no-mocks-import": "0",
   },
 };

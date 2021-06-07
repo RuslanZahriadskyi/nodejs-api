@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1623023982165" clover="3.2.0">
-  <project timestamp="1623023982165" name="All files">
-    <metrics statements="206" coveredstatements="173" conditionals="37" coveredconditionals="24" methods="27" coveredmethods="15" elements="270" coveredelements="212" complexity="0" loc="206" ncloc="206" packages="7" files="12" classes="12"/>
+<coverage generated="1623086335268" clover="3.2.0">
+  <project timestamp="1623086335268" name="All files">
+    <metrics statements="207" coveredstatements="175" conditionals="37" coveredconditionals="24" methods="27" coveredmethods="16" elements="271" coveredelements="215" complexity="0" loc="207" ncloc="207" packages="7" files="12" classes="12"/>
     <package name="src">
       <metrics statements="26" coveredstatements="24" conditionals="8" coveredconditionals="4" methods="3" coveredmethods="1"/>
       <file name="app.js" path="C:\Users\opruk\Documents\GitHub\nodejs-homework-template\src\app.js">
@@ -86,7 +86,7 @@
       </file>
     </package>
     <package name="src.controllers">
-      <metrics statements="93" coveredstatements="85" conditionals="16" coveredconditionals="14" methods="12" coveredmethods="11"/>
+      <metrics statements="94" coveredstatements="87" conditionals="16" coveredconditionals="14" methods="12" coveredmethods="12"/>
       <file name="contacts.js" path="C:\Users\opruk\Documents\GitHub\nodejs-homework-template\src\controllers\contacts.js">
         <metrics statements="48" coveredstatements="48" conditionals="8" coveredconditionals="8" methods="6" coveredmethods="6"/>
         <line num="1" count="2" type="stmt"/>
@@ -139,52 +139,53 @@
         <line num="148" count="2" type="stmt"/>
       </file>
       <file name="users.js" path="C:\Users\opruk\Documents\GitHub\nodejs-homework-template\src\controllers\users.js">
-        <metrics statements="45" coveredstatements="37" conditionals="8" coveredconditionals="6" methods="6" coveredmethods="5"/>
+        <metrics statements="46" coveredstatements="39" conditionals="8" coveredconditionals="6" methods="6" coveredmethods="6"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
         <line num="4" count="2" type="stmt"/>
         <line num="6" count="2" type="stmt"/>
-        <line num="7" count="2" type="stmt"/>
-        <line num="8" count="2" type="stmt"/>
-        <line num="9" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="15" count="1" type="stmt"/>
-        <line num="16" count="1" type="stmt"/>
-        <line num="23" count="1" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="38" count="2" type="stmt"/>
-        <line num="39" count="3" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="10" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="39" count="2" type="stmt"/>
         <line num="40" count="3" type="stmt"/>
-        <line num="41" count="2" type="stmt"/>
-        <line num="43" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="44" count="1" type="stmt"/>
-        <line num="52" count="1" type="stmt"/>
-        <line num="57" count="1" type="stmt"/>
-        <line num="61" count="2" type="stmt"/>
-        <line num="62" count="1" type="stmt"/>
+        <line num="41" count="3" type="stmt"/>
+        <line num="42" count="2" type="stmt"/>
+        <line num="44" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="45" count="1" type="stmt"/>
+        <line num="53" count="1" type="stmt"/>
+        <line num="58" count="1" type="stmt"/>
+        <line num="62" count="2" type="stmt"/>
         <line num="63" count="1" type="stmt"/>
         <line num="64" count="1" type="stmt"/>
-        <line num="70" count="2" type="stmt"/>
+        <line num="65" count="1" type="stmt"/>
         <line num="71" count="2" type="stmt"/>
-        <line num="72" count="2" type="stmt"/>
-        <line num="73" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="74" count="1" type="stmt"/>
-        <line num="80" count="1" type="stmt"/>
-        <line num="85" count="0" type="stmt"/>
-        <line num="89" count="2" type="stmt"/>
-        <line num="90" count="0" type="stmt"/>
-        <line num="91" count="0" type="stmt"/>
-        <line num="95" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="96" count="0" type="stmt"/>
-        <line num="108" count="0" type="stmt"/>
-        <line num="113" count="0" type="stmt"/>
-        <line num="117" count="2" type="stmt"/>
-        <line num="118" count="1" type="stmt"/>
-        <line num="119" count="1" type="stmt"/>
+        <line num="72" count="3" type="stmt"/>
+        <line num="73" count="3" type="stmt"/>
+        <line num="74" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="75" count="1" type="stmt"/>
+        <line num="81" count="1" type="stmt"/>
+        <line num="86" count="1" type="stmt"/>
+        <line num="90" count="2" type="stmt"/>
+        <line num="91" count="3" type="stmt"/>
+        <line num="92" count="3" type="stmt"/>
+        <line num="97" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="98" count="1" type="stmt"/>
+        <line num="110" count="1" type="stmt"/>
+        <line num="115" count="1" type="stmt"/>
+        <line num="119" count="2" type="stmt"/>
+        <line num="120" count="1" type="stmt"/>
         <line num="121" count="1" type="stmt"/>
         <line num="123" count="1" type="stmt"/>
-        <line num="130" count="2" type="stmt"/>
+        <line num="125" count="1" type="stmt"/>
+        <line num="132" count="2" type="stmt"/>
       </file>
     </package>
     <package name="src.helpers">

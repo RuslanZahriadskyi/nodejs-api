@@ -92,6 +92,7 @@ const updateSubscriptionStatus = async (req, res, next) => {
       req.user.id,
       req.body
     );
+
     if (user) {
       return res.status(HttpCode.OK).json({
         status: "success",
