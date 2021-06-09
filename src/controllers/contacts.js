@@ -6,7 +6,7 @@ const getAllContacts = async (req, res, next) => {
   try {
     const userId = req.user.id;
     const contacts = await contactsServices.getAllContacts(userId, req.query);
-    res.status(HttpCode.OK).json({
+    return res.status(HttpCode.OK).json({
       status: "success",
       code: HttpCode.OK,
       data: {
@@ -25,6 +25,7 @@ const getContactById = async (req, res, next) => {
       userId,
       req.params.contactId
     );
+
     if (contact) {
       return res.status(HttpCode.OK).json({
         status: "success",
@@ -50,7 +51,7 @@ const createContact = async (req, res, next) => {
     const userId = req.user.id;
     const contact = await contactsServices.createContact(userId, req.body);
 
-    res.status(HttpCode.CREATED).json({
+    return res.status(HttpCode.CREATED).json({
       status: "success",
       code: HttpCode.CREATED,
       data: {
@@ -73,7 +74,7 @@ const removeContact = async (req, res, next) => {
       return res.status(HttpCode.OK).json({
         status: "success",
         code: HttpCode.OK,
-        data: {},
+        data: { contact },
       });
     } else {
       return next({
@@ -95,15 +96,8 @@ const updateContact = async (req, res, next) => {
       req.params.contactId,
       req.body
     );
-    if (contact === null) {
-      return next({
-        status: HttpCode.NOT_FOUND,
-        message: `Contact does not exist`,
-        data: "Contact does not exist",
-      });
-    }
 
-    if (contact.id) {
+    if (contact?._id) {
       return res.status(HttpCode.OK).json({
         status: "success",
         code: HttpCode.OK,

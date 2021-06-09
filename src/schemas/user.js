@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const bcrypt = require("bcryptjs");
 const SALT_FACTOR = 6;
+const gravatar = require("gravatar");
 const { Subscription } = require("../helpers/constants");
 
 const usersSchema = new Schema(
@@ -38,6 +39,16 @@ const usersSchema = new Schema(
       type: String,
       default: null,
     },
+    avatar: {
+      type: String,
+      default: function () {
+        return gravatar.url(this.email, { s: "100" }, true);
+      },
+    },
+    avatarId: {
+      type: String,
+      default: null,
+    },
   },
   { versionKey: false, timestamps: true }
 );
@@ -57,6 +68,11 @@ usersSchema.path("email").validate(function (value) {
   const regExt =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
   return regExt.test(String(value).toLowerCase());
+});
+
+usersSchema.path("password").validate(function (value) {
+  const regExt = /^[a-zA-Z0-9]{7,30}$/;
+  return regExt.test(String(value));
 });
 
 usersSchema.methods.validPassword = async function (password) {
