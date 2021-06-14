@@ -149,6 +149,35 @@ const verify = async (req, res, next) => {
   }
 };
 
+const verifyRepeatedly = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    const result = await userService.verifyRepeatedly(email);
+
+    if (result === null) {
+      return next({
+        status: HttpCode.NOT_FOUND,
+        message: "Your email doesn`t registered",
+      });
+    }
+
+    if (result) {
+      return res.status(HttpCode.OK).json({
+        status: "success",
+        code: HttpCode.OK,
+        data: { message: "Verification email sent" },
+      });
+    }
+
+    next({
+      status: HttpCode.BAD_REQUEST,
+      message: "Verification has already been passed",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   reg,
   login,
@@ -157,4 +186,5 @@ module.exports = {
   updateSubscriptionStatus,
   avatars,
   verify,
+  verifyRepeatedly,
 };

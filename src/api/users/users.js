@@ -22,6 +22,7 @@ router
     usersControllers.updateSubscriptionStatus
   )
   .patch("/avatars", guard, upload.single("avatar"), usersControllers.avatars)
-  .get("/verify/:token", usersControllers.verify);
+  .get("/verify/:token", usersControllers.verify)
+  .post("/verify", usersControllers.verifyRepeatedly);
 
 module.exports = router;

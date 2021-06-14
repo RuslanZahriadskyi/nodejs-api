@@ -4,6 +4,7 @@ const ErrorHandler = require("../helpers/errorHandler");
 const { v4: uuidv4 } = require("uuid");
 const cloudinary = require("cloudinary").v2;
 const fs = require("fs").promises;
+const { number } = require("joi");
 require("dotenv").config();
 
 class UsersService {
@@ -27,7 +28,6 @@ class UsersService {
     try {
       await this.emailService.sendVerifyEmail(verifyToken, email, name);
     } catch (error) {
-      console.log(error);
       throw new ErrorHandler(503, error.message, "Service email unavailable");
     }
 
@@ -85,6 +85,21 @@ class UsersService {
       await user.updateOne({ verify: true, verifyToken: null });
       return true;
     }
+    return false;
+  }
+
+  async verifyRepeatedly(email) {
+    const user = await this.repository.users.verifyRepeatedly(email);
+
+    if (!user) {
+      return null;
+    }
+
+    if (user || !user.verify) {
+      await user.updateOne({ verify: true, verifyToken: null });
+      return true;
+    }
+
     return false;
   }
 
