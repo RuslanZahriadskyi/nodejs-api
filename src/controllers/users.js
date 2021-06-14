@@ -4,15 +4,16 @@ const userService = new UsersService();
 const authService = new AuthService();
 
 const reg = async (req, res, next) => {
-  const { name, email, password, subscription, avatar } = req.body;
-  const user = await userService.getUserByEmail(email);
-  if (user) {
-    return next({
-      status: HttpCode.CONFLICT,
-      message: "This email already exist",
-    });
-  }
   try {
+    const { name, email, password, subscription, avatar } = req.body;
+    const user = await userService.getUserByEmail(email);
+    if (user) {
+      return next({
+        status: HttpCode.CONFLICT,
+        message: "This email already exist",
+      });
+    }
+
     const newUser = await userService.create({
       name,
       email,
@@ -128,6 +129,26 @@ const avatars = async (req, res, next) => {
   });
 };
 
+const verify = async (req, res, next) => {
+  try {
+    const result = await userService.verify(req.params);
+    if (result) {
+      return res.status(HttpCode.OK).json({
+        status: "success",
+        code: HttpCode.OK,
+        data: { message: "Verification  successful" },
+      });
+    }
+    next({
+      status: HttpCode.BAD_REQUEST,
+      message:
+        "Your verification token is not valid. Contact with administration",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   reg,
   login,
@@ -135,4 +156,5 @@ module.exports = {
   currentUser,
   updateSubscriptionStatus,
   avatars,
+  verify,
 };
