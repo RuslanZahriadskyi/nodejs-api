@@ -1,31 +1,101 @@
-## GoIT Node.js Course Template Homework
+<p align="center">
+  <a href="" rel="noopener">
+ <img width=200px height=200px src="https://i.imgur.com/6wj0hh6.jpg" alt="Project logo"></a>
+</p>
 
-Выполните форк этого репозитория для выполнения домашних заданий (2-6)
-Форк создаст репозиторий на вашем http://github.com
+<h3 align="center">Template</h3>
 
-Добавьте ментора в коллаборацию
+<div align="center">
 
-Для каждой домашней работы создавайте свою ветку.
+[![Status](https://img.shields.io/badge/status-active-success.svg)]()
+[![GitHub Issues](https://img.shields.io/github/issues/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/pulls)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 
-- hw02
-- hw03
-- hw04
-- hw05
-- hw06
+</div>
 
-Каждая новая ветка для дз должна делаться с master
+---
 
-После того как вы закончили выполнять домашнее задание в своей ветке, необходимо сделать пулл-реквест (PR). Потом добавить ментора для ревью кода. Только после того как ментор заапрувит PR, вы можете выполнить мердж ветки с домашним заданием в мастер.
+<p align="center"> Few lines describing your project.
+    <br> 
+</p>
 
-Внимательно читайте комментарии ментора. Исправьте замечания и сделайте коммит в ветке с домашним заданием. Изменения подтянуться в PR автоматически после того как вы отправите коммит с исправлениями на github
-После исправления снова добавьте ментора на ревью кода.
+## 📝 Table of Contents
 
-- При сдаче домашней работы есть ссылка на PR
-- JS-код чистый и понятный, для форматирования используется Prettier
+- [About](#about)
+- [Getting Started](#getting_started)
+- [Deployment](#deployment)
+- [Usage](#usage)
+- [Built Using](#built_using)
+- [TODO](../TODO.md)
+- [Contributing](../CONTRIBUTING.md)
+- [Authors](#authors)
+- [Acknowledgments](#acknowledgement)
 
-### Команды:
+## 🧐 About <a name = "about"></a>
 
-- `npm start` &mdash; старт сервера в режиме production
-- `npm run start:dev` &mdash; старт сервера в режиме разработки (development)
-- `npm run lint` &mdash; запустить выполнение проверки кода с eslint, необходимо выполнять перед каждым PR и исправлять все ошибки линтера
-- `npm lint:fix` &mdash; та же проверка линтера, но с автоматическими исправлениями простых ошибок
+Write about 1-2 paragraphs describing the purpose of your project.
+
+## 🏁 Getting Started <a name = "getting_started"></a>
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
+
+### Prerequisites
+
+What things you need to install the software and how to install them.
+
+```
+Give examples
+```
+
+### Installing
+
+A step by step series of examples that tell you how to get a development env running.
+
+Say what the step will be
+
+```
+Give the example
+```
+
+And repeat
+
+```
+until finished
+```
+
+End with an example of getting some data out of the system or using it for a little demo.
+
+## 🔧 Running the tests <a name = "tests"></a>
+
+Explain how to run the automated tests for this system.
+
+### Break down into end to end tests
+
+Explain what these tests test and why
+
+```
+Give an example
+```
+
+## 🎈 Usage <a name="usage"></a>
+
+Add notes about how to use the system.
+
+## 🚀 Deployment <a name = "deployment"></a>
+
+Add additional notes about how to deploy this on a live system.
+
+## ⛏️ Built Using <a name = "built_using"></a>
+
+- [MongoDB](https://www.mongodb.com/) - Database
+- [Express](https://expressjs.com/) - Server Framework
+- [NodeJs](https://nodejs.org/en/) - Server Environment
+
+## ✍️ Authors <a name = "Ruslan Zahriadskyi"></a>
+
+## 🎉 Acknowledgements <a name = "acknowledgement"></a>
+
+- Hat tip to anyone whose code was used
+- Inspiration
+- References

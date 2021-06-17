@@ -152,26 +152,27 @@ const verify = async (req, res, next) => {
 const verifyRepeatedly = async (req, res, next) => {
   try {
     const { email } = req.body;
-    const result = await userService.verifyRepeatedly(email);
-
-    if (result === null) {
-      return next({
-        status: HttpCode.NOT_FOUND,
-        message: "Your email doesn`t registered",
+    const user = await userService.getUserByEmail(email);
+    if (user) {
+      const { name, email, verify, verifyToken } = user;
+      if (!verify) {
+        await userService.verifyRepeatedly(verifyToken, email, name);
+        return res.json({
+          status: "success",
+          code: HttpCode.OK,
+          data: { message: "Resubmitted success!" },
+        });
+      }
+      return res.status(HttpCode.CONFLICT).json({
+        status: "error",
+        code: HttpCode.CONFLICT,
+        message: "Email has been verified",
       });
     }
-
-    if (result) {
-      return res.status(HttpCode.OK).json({
-        status: "success",
-        code: HttpCode.OK,
-        data: { message: "Verification email sent" },
-      });
-    }
-
-    next({
-      status: HttpCode.BAD_REQUEST,
-      message: "Verification has already been passed",
+    return res.status(HttpCode.NOT_FOUND).json({
+      status: "error",
+      code: HttpCode.NOT_FOUND,
+      message: "User not found",
     });
   } catch (error) {
     next(error);

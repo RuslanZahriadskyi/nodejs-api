@@ -51,11 +51,6 @@ class UserRepository {
     const result = await this.User.findOne(field);
     return result;
   }
-
-  async verifyRepeatedly(email) {
-    const user = await this.User.findOne({ email });
-    return user;
-  }
 }
 
 module.exports = UserRepository;

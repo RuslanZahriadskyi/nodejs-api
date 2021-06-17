@@ -4,7 +4,7 @@ const ErrorHandler = require("../helpers/errorHandler");
 const { v4: uuidv4 } = require("uuid");
 const cloudinary = require("cloudinary").v2;
 const fs = require("fs").promises;
-const { number } = require("joi");
+const { HttpCode } = require("../helpers/constants");
 require("dotenv").config();
 
 class UsersService {
@@ -88,19 +88,12 @@ class UsersService {
     return false;
   }
 
-  async verifyRepeatedly(email) {
-    const user = await this.repository.users.verifyRepeatedly(email);
-
-    if (!user) {
-      return null;
+  async verifyRepeatedly(verifyToken, email, name) {
+    try {
+      await this.emailService.sendVerifyEmail(verifyToken, email, name);
+    } catch (error) {
+      throw new ErrorHandler(503, error.message, "Service email unavailable");
     }
-
-    if (user || !user.verify) {
-      await user.updateOne({ verify: true, verifyToken: null });
-      return true;
-    }
-
-    return false;
   }
 
   #uploadCloudinaryImage = (filePath) => {

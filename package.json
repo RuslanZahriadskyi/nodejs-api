@@ -4,11 +4,11 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "start": "node ./bin/server.js",
-    "start:dev": "nodemon ./bin/server.js",
+    "start": "cross-env NODE_ENV=production node ./bin/server.js",
+    "start:dev": "cross-env NODE_ENV=development nodemon ./bin/server.js",
     "lint": "eslint **/*.js",
     "lint:fix": "eslint --fix **/*.js",
-    "test": "jest --no-cashe",
+    "test": "jest --no-cache --verbose",
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
