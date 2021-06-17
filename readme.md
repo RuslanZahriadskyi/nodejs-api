@@ -94,6 +94,8 @@ Add additional notes about how to deploy this on a live system.
 
 ## ✍️ Authors <a name = "Ruslan Zahriadskyi"></a>
 
+- [@RuslanZahriadskyi](https://github.com/RuslanZahriadskyi)
+
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
 
 - Hat tip to anyone whose code was used
