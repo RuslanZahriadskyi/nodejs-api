@@ -17,6 +17,8 @@ class AuthService {
       return null;
     }
 
+    console.log(user);
+
     const id = user.id;
     const payload = { id };
     const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "10h" });
