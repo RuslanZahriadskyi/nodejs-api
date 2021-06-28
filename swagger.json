@@ -10,11 +10,11 @@
   "tags": [
     {
       "name": "contacts",
-      "description": "Your Contacts"
+      "description": "Operations with your contacts"
     },
     {
       "name": "user",
-      "description": "Operations about user"
+      "description": "Operations with user"
     }
   ],
   "servers": [
@@ -34,13 +34,83 @@
             "description": "contact identificator",
             "required": "true",
             "schema": {
-              "type": "integer"
+              "type": "string"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "description": "responses status",
+                      "example": "success"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "responses code",
+                      "example": "201"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "responses data",
+                      "example": {
+                        "contact": {
+                          "favorite": false,
+                          "_id": "60da3be6cff67a28381f1212",
+                          "name": "Firstaa Mongo",
+                          "phone": "(992) 914-3872",
+                          "email": "user.email@mail.com",
+                          "owner": {
+                            "name": "One More",
+                            "subscription": "pro",
+                            "_id": "60da386bff30f84fbcb908c7",
+                            "email": "owner.email@mail.com"
+                          },
+                          "createdAt": "2021-06-28T21:15:18.809Z",
+                          "updatedAt": "2021-06-28T21:15:18.809Z"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 403"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 400"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Iternal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 500"
+                }
+              }
+            }
           }
         }
       },
@@ -48,13 +118,15 @@
         "tags": ["contacts"],
         "summary": "Change Contact",
         "security": [{ "Bearer": [] }],
-        "parameters": {
-          "name": "contactId",
-          "in": "path",
-          "description": " contact identificator",
-          "required": true,
-          "schema": { "type": "integer" }
-        },
+        "parameters": [
+          {
+            "name": "contactId",
+            "in": "path",
+            "description": " contact identificator",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -81,7 +153,44 @@
         },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success Response"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 403"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 404"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Iternal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 500"
+                }
+              }
+            }
           }
         }
       },
@@ -96,13 +205,50 @@
             "description": "contact identificator",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success Response"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 403"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 404"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Iternal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 500"
+                }
+              }
+            }
           }
         }
       },
@@ -117,7 +263,7 @@
             "description": "contact identificator",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             }
           }
         ],
@@ -141,8 +287,45 @@
         },
 
         "responses": {
-          "200": {
-            "description": "Success"
+          "201": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success Response"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 403"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 404"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Iternal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 500"
+                }
+              }
+            }
           }
         }
       }
@@ -155,7 +338,56 @@
         "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "description": "responses status",
+                      "example": "success"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "responses code",
+                      "example": "200"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "responses data",
+                      "example": {
+                        "contacts": [],
+                        "total": 0,
+                        "limit": 5,
+                        "offset": 0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 403"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Iternal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 500"
+                }
+              }
+            }
           }
         }
       },
@@ -192,7 +424,34 @@
         },
         "responses": {
           "201": {
-            "description": "creat"
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success Response"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 403"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Iternal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 500"
+                }
+              }
+            }
           }
         }
       }
@@ -213,7 +472,6 @@
                     "example": "some password",
                     "description": "Password"
                   },
-
                   "name": {
                     "type": "string",
                     "example": "some name",
@@ -236,10 +494,93 @@
         },
         "responses": {
           "201": {
-            "description": "success"
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "description": "responses status",
+                      "example": "success"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "responses code",
+                      "example": "201"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "responses data",
+                      "example": {
+                        "id": "60d9f35e8a52085120891b18",
+                        "email": "example@email.com",
+                        "subscription": "pro",
+                        "avatar": "https://path.to.user.avatar"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 400"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 403"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "description": "status",
+                      "example": "error"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "code",
+                      "example": "409"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "conflict",
+                      "example": "This email already exist"
+                    }
+                  }
+                }
+              }
+            }
           },
           "500": {
-            "description": "Iternal server"
+            "description": "Iternal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 500"
+                }
+              }
+            }
           }
         }
       }
@@ -274,13 +615,80 @@
         },
         "responses": {
           "200": {
-            "description": "Login user success"
+            "description": "Login user success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "description": "responses status",
+                      "example": "success"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "responses code",
+                      "example": "200"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "responses data",
+                      "example": {
+                        "token": "User token after success login"
+                      }
+                    }
+                  }
+                }
+              }
+            }
           },
           "401": {
-            "description": "Invaid credincials"
+            "description": "Invaid credincials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "description": "responses status",
+                      "example": "error"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "responses code",
+                      "example": "401"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "responses message",
+                      "example": "Invalid creadentials"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 400"
+                }
+              }
+            }
           },
           "500": {
-            "description": "Iternal server"
+            "description": "Iternal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 500"
+                }
+              }
+            }
           }
         }
       }
@@ -292,14 +700,40 @@
         "security": [{ "Bearer": [] }],
         "parameters": [],
         "responses": {
-          "200": { "description": "Success" },
-          "400": { "description": "Bad request" },
-          "403": { "description": "Forbidden" },
-          "500": { "description": "Iternal server" }
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User Response"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 403"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Iternal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 500"
+                }
+              }
+            }
+          }
         }
       }
     },
-    " /api/users/": {
+    "/api/users/": {
       "post": {
         "tags": ["user"],
         "summary": "Change user subscription",
@@ -324,10 +758,46 @@
           }
         },
         "responses": {
-          "200": { "description": "Success" },
-          "400": { "description": "Bad request" },
-          "403": { "description": " Forbidden" },
-          "500": { "description": " Iternal server" }
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User Response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 400"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 403"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Iternal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 500"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -355,10 +825,63 @@
           }
         },
         "responses": {
-          "200": { "description": "Success" },
-          "404": { "description": "Not Found" },
-          "403": { "description": "Forbidden" },
-          "500": { "description": "Iternal server" }
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "description": "responses status",
+                      "example": "success"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "responses code",
+                      "example": "200"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "responses data",
+                      "example": { "message": "Resubmitted success!" }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 403"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 404"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Iternal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 500"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -369,15 +892,246 @@
         "security": [{ "Bearer": [] }],
         "parameters": [],
         "responses": {
-          "200": { "description": "Success" },
-          "400": { "description": "Bad request" },
-          "403": { "description": "Forbidden" },
-          "500": { "description": "Iternal server" }
+          "204": { "description": "Success" },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 403"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Iternal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 500"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/avatars": {
+      "patch": {
+        "tags": ["user"],
+        "summary": "Change user avatar",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "name": "avatar",
+            "in": "formData",
+            "description": "upload new avatar",
+            "required": true,
+            "schema": { "type": "file" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "description": "responses status",
+                      "example": "success"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "responses code",
+                      "example": "200"
+                    },
+                    "avatarUrl": {
+                      "type": "string",
+                      "description": "responses url",
+                      "example": "https://res.cloudinary.com/inferus/image/upload/v1624917610/avatars/r8in49olqwk0mxueazau.jpg"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 403"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Iternal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error 500"
+                }
+              }
+            }
+          }
         }
       }
     }
   },
   "components": {
+    "schemas": {
+      "Success Response": {
+        "description": "success",
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "responses status",
+            "example": "success"
+          },
+          "code": {
+            "type": "string",
+            "description": "responses code",
+            "example": "201"
+          },
+          "data": {
+            "type": "object",
+            "description": "responses data",
+            "example": {
+              "contact": {
+                "favorite": false,
+                "_id": "60da3be6cff67a28381f1212",
+                "name": "Firstaa Mongo",
+                "phone": "(992) 914-3872",
+                "email": "user.email@mail.com",
+                "owner": "60da233bff30f84fbcb908c7",
+                "createdAt": "2021-06-28T21:15:18.809Z",
+                "updatedAt": "2021-06-28T21:15:18.809Z"
+              }
+            }
+          }
+        }
+      },
+      "User Response": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "responses status",
+            "example": "success"
+          },
+          "code": {
+            "type": "string",
+            "description": "responses code",
+            "example": "200"
+          },
+          "data": {
+            "type": "object",
+            "description": "responses data",
+            "example": {
+              "user": {
+                "name": "One More",
+                "email": "user.email@mail.com",
+                "subscription": "pro"
+              }
+            }
+          }
+        }
+      },
+      "Error 400": {
+        "description": "Bad Request",
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "responses status",
+            "example": "error"
+          },
+          "code": {
+            "type": "string",
+            "description": "responses code",
+            "example": "400"
+          },
+          "message": {
+            "type": "string",
+            "description": "responses message",
+            "example": "Bad Request"
+          }
+        }
+      },
+      "Error 403": {
+        "description": "Forbidden",
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "responses status",
+            "example": "error"
+          },
+          "code": {
+            "type": "string",
+            "description": "responses code",
+            "example": "403"
+          },
+          "message": {
+            "type": "string",
+            "description": "responses message",
+            "example": "Forbidden"
+          }
+        }
+      },
+      "Error 404": {
+        "description": "Not Found",
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "responses status",
+            "example": "error"
+          },
+          "code": {
+            "type": "string",
+            "description": "responses code",
+            "example": "404"
+          },
+          "message": {
+            "type": "string",
+            "description": "responses message",
+            "example": "Not Found"
+          }
+        }
+      },
+      "Error 500": {
+        "description": "Iternal Server Error",
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "responses status",
+            "example": "fail"
+          },
+          "code": {
+            "type": "string",
+            "description": "responses code",
+            "example": "500"
+          },
+          "message": {
+            "type": "string",
+            "description": "responses message",
+            "example": "User password is required"
+          },
+          "data": {
+            "type": "string",
+            "description": "responses data",
+            "example": "Internal Server Found"
+          }
+        }
+      }
+    },
     "securitySchemes": {
       "Bearer": {
         "type": "http",
@@ -385,5 +1139,6 @@
         "bearerFormat": "JWT"
       }
     }
-  }
+  },
+  "schemes": ["http", "https"]
 }

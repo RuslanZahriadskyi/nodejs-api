@@ -117,16 +117,20 @@ const updateSubscriptionStatus = async (req, res, next) => {
 };
 
 const avatars = async (req, res, next) => {
-  const userId = req.user.id;
-  const pathFile = req.file.path;
+  try {
+    const userId = req.user.id;
+    const pathFile = req.file.path;
 
-  const url = await userService.updateAvatars(userId, pathFile);
+    const url = await userService.updateAvatars(userId, pathFile);
 
-  return res.status(HttpCode.OK).json({
-    status: "success",
-    code: HttpCode.OK,
-    avatarUrl: url,
-  });
+    return res.status(HttpCode.OK).json({
+      status: "success",
+      code: HttpCode.OK,
+      avatarUrl: url,
+    });
+  } catch (error) {
+    next(error);
+  }
 };
 
 const verify = async (req, res, next) => {
