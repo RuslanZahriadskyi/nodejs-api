@@ -39,7 +39,6 @@ const reg = async (req, res, next) => {
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    console.log(email, password);
     const token = await authService.login({ email, password });
 
     if (token) {

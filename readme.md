@@ -31,7 +31,10 @@ npm install
 
 ## 🔧 Running the tests <a name = "tests"></a>
 
-Explain how to run the automated tests for this system.
+```
+npm install
+
+```
 
 ## 🎈 Usage <a name="usage"></a>
 
