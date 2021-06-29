@@ -46,6 +46,11 @@ class UserRepository {
     const { avatar, avatarId } = await this.User.findOne({ _id: id });
     return { avatar, avatarId };
   }
+
+  async findByField(field) {
+    const result = await this.User.findOne(field);
+    return result;
+  }
 }
 
 module.exports = UserRepository;

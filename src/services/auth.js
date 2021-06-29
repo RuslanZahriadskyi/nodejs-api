@@ -13,9 +13,12 @@ class AuthService {
   async login({ email, password }) {
     const user = await this.repository.users.getUserByEmail(email);
 
-    if (!user || !user.validPassword(password)) {
+    if (!user || !user.validPassword(password) || !user.verify) {
       return null;
     }
+
+    console.log(user);
+
     const id = user.id;
     const payload = { id };
     const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "10h" });

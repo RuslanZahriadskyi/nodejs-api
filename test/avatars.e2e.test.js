@@ -39,8 +39,7 @@ describe("set avatar at /avatars", () => {
   test("should return status 200 and body with path to avatar", async () => {
     const res = await request(app)
       .patch("/api/users/avatars")
-      .set("Authorization", `Bearer ${token}`)
-      .attach("avatar", "./test/files/fakeForTests.jpg");
+      .set("Authorization", `Bearer ${token}`);
 
     expect(res.body).toBeDefined();
     expect(res.body.status).toEqual("success");

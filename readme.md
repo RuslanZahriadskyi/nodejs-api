@@ -1,31 +1,55 @@
-## GoIT Node.js Course Template Homework
+<p align="center">
+  <a href="" rel="noopener">
+ <img width=200px height=200px src="https://i.imgur.com/6wj0hh6.jpg" alt="Project logo"></a>
+</p>
 
-Выполните форк этого репозитория для выполнения домашних заданий (2-6)
-Форк создаст репозиторий на вашем http://github.com
+<p align="center"> Few lines describ this project.
+    <br> 
+</p>
 
-Добавьте ментора в коллаборацию
+## 📝 Table of Contents
 
-Для каждой домашней работы создавайте свою ветку.
+- [About](#about)
+- [Getting Started](#getting_started)
+- [Usage](#usage)
+- [Built Using](#built_using)
+- [Authors](#authors)
 
-- hw02
-- hw03
-- hw04
-- hw05
-- hw06
+## 🧐 About <a name = "about"></a>
 
-Каждая новая ветка для дз должна делаться с master
+This is Contacts API write by - [Node.js](https://nodejs.org/) and deploy on - [Heroku](https://www.heroku.com).
+With this API you can save your contacts without fear and risk of losing them, due to a broken or lost phone.
 
-После того как вы закончили выполнять домашнее задание в своей ветке, необходимо сделать пулл-реквест (PR). Потом добавить ментора для ревью кода. Только после того как ментор заапрувит PR, вы можете выполнить мердж ветки с домашним заданием в мастер.
+## 🏁 Getting Started <a name = "getting_started"></a>
 
-Внимательно читайте комментарии ментора. Исправьте замечания и сделайте коммит в ветке с домашним заданием. Изменения подтянуться в PR автоматически после того как вы отправите коммит с исправлениями на github
-После исправления снова добавьте ментора на ревью кода.
+These instructions will get you a copy of the project up and running on your local machine, everything you need - fork or copy this repository.
 
-- При сдаче домашней работы есть ссылка на PR
-- JS-код чистый и понятный, для форматирования используется Prettier
+```
+npm install
 
-### Команды:
+```
 
-- `npm start` &mdash; старт сервера в режиме production
-- `npm run start:dev` &mdash; старт сервера в режиме разработки (development)
-- `npm run lint` &mdash; запустить выполнение проверки кода с eslint, необходимо выполнять перед каждым PR и исправлять все ошибки линтера
-- `npm lint:fix` &mdash; та же проверка линтера, но с автоматическими исправлениями простых ошибок
+## 🔧 Running the tests <a name = "tests"></a>
+
+```
+npm install
+
+```
+
+## 🎈 Usage <a name="usage"></a>
+
+Add notes about how to use the system.
+
+## ⛏️ Built Using <a name = "built_using"></a>
+
+- [MongoDB](https://www.mongodb.com/) - Database
+- [Express](https://expressjs.com/) - Server Framework
+- [NodeJs](https://nodejs.org/en/) - Server Environment
+- [Passport](https://www.passportjs.org/) - Check user credencials
+- [Supertest](https://github.com/visionmedia/supertest#readme) - Testing correctly working
+- [Cloudinary](https://cloudinary.com/) - Save user avatars
+- [Sendgrid](https://sendgrid.com/) - Send mail to users
+
+## ✍️ Authors <a name = "authors"></a>
+
+- [@RuslanZahriadskyi](https://github.com/RuslanZahriadskyi)

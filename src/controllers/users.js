@@ -4,15 +4,16 @@ const userService = new UsersService();
 const authService = new AuthService();
 
 const reg = async (req, res, next) => {
-  const { name, email, password, subscription, avatar } = req.body;
-  const user = await userService.getUserByEmail(email);
-  if (user) {
-    return next({
-      status: HttpCode.CONFLICT,
-      message: "This email already exist",
-    });
-  }
   try {
+    const { name, email, password, subscription, avatar } = req.body;
+    const user = await userService.getUserByEmail(email);
+    if (user) {
+      return next({
+        status: HttpCode.CONFLICT,
+        message: "This email already exist",
+      });
+    }
+
     const newUser = await userService.create({
       name,
       email,
@@ -116,16 +117,70 @@ const updateSubscriptionStatus = async (req, res, next) => {
 };
 
 const avatars = async (req, res, next) => {
-  const userId = req.user.id;
-  const pathFile = req.file.path;
+  try {
+    const userId = req.user.id;
+    const pathFile = req.file.path;
 
-  const url = await userService.updateAvatars(userId, pathFile);
+    const url = await userService.updateAvatars(userId, pathFile);
 
-  return res.status(HttpCode.OK).json({
-    status: "success",
-    code: HttpCode.OK,
-    avatarUrl: url,
-  });
+    return res.status(HttpCode.OK).json({
+      status: "success",
+      code: HttpCode.OK,
+      avatarUrl: url,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const verify = async (req, res, next) => {
+  try {
+    const result = await userService.verify(req.params);
+    if (result) {
+      return res.status(HttpCode.OK).json({
+        status: "success",
+        code: HttpCode.OK,
+        data: { message: "Verification  successful" },
+      });
+    }
+    next({
+      status: HttpCode.BAD_REQUEST,
+      message:
+        "Your verification token is not valid. Contact with administration",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const verifyRepeatedly = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    const user = await userService.getUserByEmail(email);
+    if (user) {
+      const { name, email, verify, verifyToken } = user;
+      if (!verify) {
+        await userService.verifyRepeatedly(verifyToken, email, name);
+        return res.json({
+          status: "success",
+          code: HttpCode.OK,
+          data: { message: "Resubmitted success!" },
+        });
+      }
+      return res.status(HttpCode.CONFLICT).json({
+        status: "error",
+        code: HttpCode.CONFLICT,
+        message: "Email has been verified",
+      });
+    }
+    return res.status(HttpCode.NOT_FOUND).json({
+      status: "error",
+      code: HttpCode.NOT_FOUND,
+      message: "User not found",
+    });
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports = {
@@ -135,4 +190,6 @@ module.exports = {
   currentUser,
   updateSubscriptionStatus,
   avatars,
+  verify,
+  verifyRepeatedly,
 };
