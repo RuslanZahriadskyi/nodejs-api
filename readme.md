@@ -3,7 +3,7 @@
  <img width=200px height=200px src="https://i.imgur.com/6wj0hh6.jpg" alt="Project logo"></a>
 </p>
 
-<p align="center"> Few lines describ this project.
+<p align="center"> Back End for Own Contacts Project.
     <br> 
 </p>
 
