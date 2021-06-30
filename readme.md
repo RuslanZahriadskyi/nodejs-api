@@ -32,13 +32,20 @@ npm install
 ## 🔧 Running the tests <a name = "tests"></a>
 
 ```
-npm install
+npm test
+
+```
+
+or command through which you can see percentage is covered by tests
+
+```
+npm run test:coverage
 
 ```
 
 ## 🎈 Usage <a name="usage"></a>
 
-Add notes about how to use the system.
+All methods how to use the system you can see on https://own-contacts.herokuapp.com/api-docs/.
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
